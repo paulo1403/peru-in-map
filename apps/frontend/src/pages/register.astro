@@ -1,23 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import AuthLayout from '../layouts/AuthLayout.astro';
 import RegisterForm from '../components/RegisterForm';
 ---
 
-<Layout title="Crear Cuenta - QueHacer.pe">
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Crear Cuenta
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          O{' '}
-          <a href="/login" class="font-medium text-primary hover:text-primary/80">
-            inicia sesión si ya tienes cuenta
-          </a>
-        </p>
-      </div>
-      <RegisterForm client:load />
-    </div>
-  </div>
-</Layout>
+<AuthLayout title="Crear Cuenta - QueHacer.pe">
+  <RegisterForm client:load />
+</AuthLayout>
