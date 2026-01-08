@@ -1,7 +1,7 @@
 import { IconMapPin } from '@tabler/icons-react';
-import { Badge } from '../ui/Badge';
-import { Card, CardContent } from '../ui/Card';
-import { Rating } from '../ui/Rating';
+import { Badge } from './ui';
+import { Card, CardContent } from './ui/Card';
+import { Rating } from './ui/Rating';
 import type { Place, PlaceCategory } from '@shared/types';
 
 interface PlaceCardProps {

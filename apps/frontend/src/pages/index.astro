@@ -1,17 +1,154 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { HeroSection } from '../components/HeroSection';
+import { api } from '../services/api';
+
+// Fetch featured places
+const response = await api.getPlaces({ 
+  limit: 6,
+  sortBy: 'rating'
+});
+
+const featuredPlaces = response.success && response.data ? response.data.items.slice(0, 3) : [];
 ---
 
 <Layout>
-  <div class="container mx-auto px-4 py-8">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-text mb-4">QueHacer.pe</h1>
-      <p class="text-secondary text-lg">Plataforma para descubrir lugares locales en Perú</p>
-      <div class="mt-8">
-        <a href="/mapa" class="bg-brand text-white px-6 py-3 rounded-lg hover:bg-brand-hover transition-colors">
-          Explorar Mapa
-        </a>
+  <!-- Hero Section - Moderno y Limpio -->
+  <HeroSection client:load />
+
+  <!-- Featured Places -->
+  {featuredPlaces.length > 0 && (
+    <div class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex items-end justify-between mb-12">
+          <div>
+            <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Recomendados</p>
+            <h2 class="text-4xl font-bold text-text">Lugares Destacados</h2>
+          </div>
+          <a 
+            href="/lugares" 
+            class="group hidden md:inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition"
+          >
+            Ver todos
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featuredPlaces.map((place: any) => (
+            <a 
+              href={`/lugares/${place.id}`}
+              class="group block bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all duration-300"
+            >
+              <!-- Imagen -->
+              <div class="relative h-56 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent group-hover:from-black/40 transition-all"></div>
+                <svg class="w-16 h-16 text-primary/30 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+
+              <!-- Content -->
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-text group-hover:text-primary transition mb-2">
+                  {place.name}
+                </h3>
+                <p class="text-secondary mb-4 line-clamp-2 leading-relaxed">
+                  {place.description}
+                </p>
+                
+                <div class="flex items-center justify-between pt-4 border-t border-border">
+                  {place.rating && place.rating > 0 ? (
+                    <div class="flex items-center gap-2">
+                      <div class="flex items-center gap-1">
+                        <svg class="w-5 h-5 text-accent fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span class="font-bold text-text">{place.rating.toFixed(1)}</span>
+                      </div>
+                    </div>
+                  ) : null}
+                  <span class="text-sm text-secondary font-medium">{place.district}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+        
+        <!-- Ver todos en móvil -->
+        <div class="mt-8 text-center md:hidden">
+          <a 
+            href="/lugares" 
+            class="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition"
+          >
+            Ver todos los lugares
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Categories -->
+  <div class="py-20 bg-gradient-to-br from-background to-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Categorías</p>
+        <h2 class="text-4xl font-bold text-text">Explora por Tipo</h2>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {[
+          { name: 'Cafés', icon: '☕', category: 'cafe', color: 'from-amber-500/10 to-orange-500/10' },
+          { name: 'Restaurantes', icon: '🍽️', category: 'restaurant', color: 'from-red-500/10 to-pink-500/10' },
+          { name: 'Parques', icon: '🌳', category: 'park', color: 'from-green-500/10 to-emerald-500/10' },
+          { name: 'Bares', icon: '🍺', category: 'bar', color: 'from-blue-500/10 to-indigo-500/10' },
+        ].map((cat) => (
+          <a 
+            href={`/lugares?category=${cat.category}`}
+            class={`group relative bg-gradient-to-br ${cat.color} border border-border rounded-2xl p-8 text-center hover:border-primary hover:shadow-lg transition-all overflow-hidden`}
+          >
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors"></div>
+            <div class="relative">
+              <div class="text-5xl mb-4 transform group-hover:scale-110 transition-transform">{cat.icon}</div>
+              <p class="font-bold text-text group-hover:text-primary transition">{cat.name}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </div>
+  
+  <!-- CTA Final -->
+  <div class="py-20 bg-primary text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para explorar?</h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Descubre lugares únicos y comparte tus experiencias con la comunidad
+      </p>
+      <a 
+        href="/lugares" 
+        class="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-bold hover:bg-white/90 transition-all shadow-lg"
+      >
+        Comenzar a Explorar
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

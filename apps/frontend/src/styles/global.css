@@ -1,28 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-:root {
-  /* Paleta de colores QueHacer.pe */
-  --color-primary: #4F46E5;      /* Indigo urbano - CTAs, enlaces, estados activos */
-  --color-secondary: #16A34A;   /* Verde urbano - etiquetas, positivos, lugares gratuitos */
-  --color-accent: #F59E0B;      /* Amber suave - ratings, estrellas */
-
-  /* Estados */
+@theme {
+  /* Colores principales QueHacer.pe */
+  --color-primary: #4F46E5;
+  --color-secondary: #6B7280;
+  --color-accent: #F59E0B;
+  
+  /* Verde para estados positivos */
   --color-success: #16A34A;
-  --color-error: #DC2626;
-  --color-warning: #F59E0B;
-  --color-info: #2563EB;
-
+  
   /* Neutros */
-  --color-text-primary: #111827;
-  --color-text-secondary: #6B7280;
+  --color-text: #111827;
   --color-background: #F9FAFB;
   --color-border: #E5E7EB;
   --color-surface: #FFFFFF;
+}
 
+:root {
   /* Gradiente sutil para fondo */
-  --color-gradient-start: #EEF2FF;  /* Indigo muy claro */
-  --color-gradient-end: #F0FDF4;   /* Verde muy claro */
+  --color-gradient-start: #EEF2FF;
+  --color-gradient-end: #F0FDF4;
 }
 
 * {
@@ -32,31 +30,14 @@
 body {
   background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
   min-height: 100vh;
-  color: var(--color-text-primary);
-}
-
-/* Clases personalizadas para QueHacer.pe */
-.bg-brand {
-  background-color: var(--color-primary);
-}
-
-.bg-brand:hover {
-  background-color: #4338CA; /* Indigo más oscuro para hover */
-}
-
-.text-text {
-  color: var(--color-text-primary);
-}
-
-.text-secondary {
-  color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 /* Ocultar scrollbar horizontal en filtros móviles */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none;
 }

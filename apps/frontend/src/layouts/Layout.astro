@@ -14,7 +14,7 @@ import { Header } from '../components/Header';
 		<title>{Astro.props.title || 'QueHacer.pe | Descubre el Perú'}</title>
 	</head>
 	<body class="min-h-screen text-text-primary">
-		<Header />
+		<Header client:load />
 		<main class="flex-1">
 			<slot />
 		</main>

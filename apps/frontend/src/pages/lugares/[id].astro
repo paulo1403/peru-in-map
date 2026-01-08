@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { api } from '../../services/api';
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect('/lugares');
+}
+
+// Fetch place and reviews from API
+const [placeResponse, reviewsResponse] = await Promise.all([
+  api.getPlaceById(id),
+  api.getPlaceReviews(id),
+]);
+
+if (!placeResponse.success || !placeResponse.data) {
+  return Astro.redirect('/lugares');
+}
+
+const place = placeResponse.data;
+const reviews = reviewsResponse.success && reviewsResponse.data ? reviewsResponse.data : [];
+
+const categoryLabels: Record<string, string> = {
+  cafe: 'Café',
+  restaurant: 'Restaurante',
+  bar: 'Bar',
+  park: 'Parque',
+  museum: 'Museo',
+  theater: 'Teatro',
+  market: 'Mercado',
+  shopping: 'Compras',
+  sports: 'Deportes',
+  other: 'Otro',
+};
+---
+
+<Layout title={`${place.name} | QueHacer.pe`} description={place.description}>
+  <div class="container mx-auto px-4 py-8">
+    <!-- Back button -->
+    <a 
+      href="/lugares" 
+      class="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-6 transition"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Volver a lugares
+    </a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
+        <!-- Image -->
+        <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl h-96 flex items-center justify-center mb-6">
+          <svg class="w-24 h-24 text-primary/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+
+        <!-- Title and category -->
+        <div class="mb-6">
+          <div class="flex items-start justify-between mb-3">
+            <h1 class="text-4xl font-bold text-text">{place.name}</h1>
+            {place.isSponsored && (
+              <span class="px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full">
+                Destacado
+              </span>
+            )}
+          </div>
+          
+          <div class="flex items-center gap-4 mb-4">
+            <span class="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full">
+              {categoryLabels[place.category] || place.category}
+            </span>
+            
+            {place.rating && place.rating > 0 && (
+              <div class="flex items-center gap-2">
+                <div class="flex">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg 
+                      class={`w-5 h-5 ${i < Math.round(place.rating!) ? 'text-accent fill-current' : 'text-border'}`}
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <span class="font-semibold text-text">{place.rating.toFixed(1)}</span>
+                <span class="text-secondary">({place.reviewCount} reseñas)</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-surface rounded-xl p-6 mb-6">
+          <h2 class="text-xl font-semibold text-text mb-3">Descripción</h2>
+          <p class="text-secondary leading-relaxed">{place.description}</p>
+        </div>
+
+        <!-- Location -->
+        <div class="bg-surface rounded-xl p-6 mb-6">
+          <h2 class="text-xl font-semibold text-text mb-3">Ubicación</h2>
+          <div class="flex items-center gap-2 text-secondary">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{place.district}, {place.city}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        {place.tags && place.tags.length > 0 && (
+          <div class="bg-surface rounded-xl p-6 mb-6">
+            <h2 class="text-xl font-semibold text-text mb-3">Etiquetas</h2>
+            <div class="flex flex-wrap gap-2">
+              {place.tags.map((tag: string) => (
+                <span class="px-3 py-1 text-sm bg-secondary/10 text-secondary rounded-full">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Reviews -->
+        <div class="bg-surface rounded-xl p-6">
+          <h2 class="text-xl font-semibold text-text mb-4">
+            Reseñas {reviews.length > 0 && `(${reviews.length})`}
+          </h2>
+          
+          {reviews.length > 0 ? (
+            <div class="space-y-4">
+              {reviews.map((review: any) => (
+                <div class="border-b border-border pb-4 last:border-0">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="flex">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <svg 
+                          class={`w-4 h-4 ${i < review.rating ? 'text-accent fill-current' : 'text-border'}`}
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <span class="text-sm text-secondary">
+                      {new Date(review.createdAt).toLocaleDateString('es-PE')}
+                    </span>
+                  </div>
+                  {review.comment && (
+                    <p class="text-secondary">{review.comment}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p class="text-secondary">No hay reseñas aún. ¡Sé el primero en dejar una!</p>
+          )}
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="bg-surface rounded-xl p-6 sticky top-8">
+          <h3 class="text-lg font-semibold text-text mb-4">Información</h3>
+          
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-secondary mb-1">Categoría</p>
+              <p class="font-medium text-text">{categoryLabels[place.category] || place.category}</p>
+            </div>
+            
+            <div>
+              <p class="text-sm text-secondary mb-1">Ubicación</p>
+              <p class="font-medium text-text">{place.district}</p>
+              <p class="text-sm text-secondary">{place.city}</p>
+            </div>
+
+            {place.rating && place.rating > 0 && (
+              <div>
+                <p class="text-sm text-secondary mb-1">Calificación</p>
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl font-bold text-text">{place.rating.toFixed(1)}</span>
+                  <div class="flex">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg 
+                        class={`w-4 h-4 ${i < Math.round(place.rating!) ? 'text-accent fill-current' : 'text-border'}`}
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p class="text-sm text-secondary mt-1">{place.reviewCount} reseñas</p>
+              </div>
+            )}
+          </div>
+
+          <button class="w-full mt-6 px-4 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition">
+            Dejar una reseña
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
