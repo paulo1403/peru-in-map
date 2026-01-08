@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { api } from '../../services/api';
 
+export const prerender = false;
+
 const { id } = Astro.params;
 
 if (!id) {
@@ -52,20 +54,21 @@ const categoryLabels: Record<string, string> = {
       <!-- Main Content -->
       <div class="lg:col-span-2">
         <!-- Image -->
-        <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl h-96 flex items-center justify-center mb-6">
-          <svg class="w-24 h-24 text-primary/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        <div class="relative bg-gradient-to-br from-primary/10 via-accent/5 to-success/10 rounded-3xl h-96 flex items-center justify-center mb-8 overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+          <svg class="w-28 h-28 text-primary/40 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
         </div>
 
         <!-- Title and category -->
-        <div class="mb-6">
-          <div class="flex items-start justify-between mb-3">
-            <h1 class="text-4xl font-bold text-text">{place.name}</h1>
+        <div class="mb-8">
+          <div class="flex items-start justify-between mb-4">
+            <h1 class="text-5xl font-bold text-text">{place.name}</h1>
             {place.isSponsored && (
-              <span class="px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full">
-                Destacado
+              <span class="px-4 py-2 text-sm font-bold bg-accent text-white rounded-full shadow-lg">
+                ⭐ Destacado
               </span>
             )}
           </div>
@@ -95,9 +98,9 @@ const categoryLabels: Record<string, string> = {
         </div>
 
         <!-- Description -->
-        <div class="bg-surface rounded-xl p-6 mb-6">
-          <h2 class="text-xl font-semibold text-text mb-3">Descripción</h2>
-          <p class="text-secondary leading-relaxed">{place.description}</p>
+        <div class="bg-white border border-border rounded-2xl p-8 mb-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-2xl font-bold text-text mb-4">Descripción</h2>
+          <p class="text-secondary leading-relaxed text-lg">{place.description}</p>
         </div>
 
         <!-- Location -->
