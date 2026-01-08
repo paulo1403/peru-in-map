@@ -9,6 +9,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Fix for default marker icon in React Leaflet
 // @ts-expect-error - Required for Leaflet default icon fix in Webpack/Vite environments
@@ -32,15 +33,8 @@ interface Place {
   city: string;
 }
 
-const CATEGORIES = [
-  { id: 'all', label: 'Todos', icon: IconMapPin },
-  { id: 'cafe', label: 'Cafés', icon: IconCoffee },
-  { id: 'culture', label: 'Cultura', icon: IconBuildingMonument },
-  { id: 'park', label: 'Parques', icon: IconTrees },
-  { id: 'bar', label: 'Bares', icon: IconGlassFull },
-] as const;
-
 export default function LimaMap() {
+  const { t } = useLanguage();
   const [places, setPlaces] = useState<Place[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
@@ -54,6 +48,14 @@ export default function LimaMap() {
     if (activeCategory === 'all') return places;
     return places.filter((p) => p.category === activeCategory);
   }, [places, activeCategory]);
+
+  const CATEGORIES = [
+    { id: 'all', label: t('map.filters.all'), icon: IconMapPin },
+    { id: 'cafe', label: t('map.filters.cafe'), icon: IconCoffee },
+    { id: 'culture', label: t('map.filters.culture'), icon: IconBuildingMonument },
+    { id: 'park', label: t('map.filters.park'), icon: IconTrees },
+    { id: 'bar', label: t('map.filters.bar'), icon: IconGlassFull },
+  ] as const;
 
   return (
     <div className="flex flex-col gap-4">

@@ -1,19 +1,16 @@
 import { IconHeart } from '@tabler/icons-react';
-import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
-
   return (
     <footer className="w-full border-t border-gray-200/50 bg-background/80 backdrop-blur-md py-6 mt-auto">
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:flex-row">
         <p className="text-sm text-secondary">
-          © {new Date().getFullYear()} QueHacer.pe. {t('footer.copyright')}
+          © {new Date().getFullYear()} QueHacer.pe. Todos los derechos reservados.
         </p>
         <div className="flex items-center gap-1 text-sm text-secondary">
-          <span>{t('footer.madeWith')}</span>
+          <span>Hecho con</span>
           <IconHeart className="h-4 w-4 text-brand fill-brand animate-pulse" />
-          <span>{t('footer.inPeru')}</span>
+          <span>en Perú</span>
         </div>
       </div>
     </footer>

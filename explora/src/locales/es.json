@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "map": "Mapa"
+  },
+  "hero": {
+    "title": "Mapa de Exploración",
+    "subtitle": "Navega por el Perú y encuentra tu próximo destino."
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados.",
+    "madeWith": "Hecho con",
+    "inPeru": "en Perú"
+  },
+  "map": {
+    "filters": {
+      "all": "Todos",
+      "cafe": "Cafés",
+      "culture": "Cultura",
+      "park": "Parques",
+      "bar": "Bares"
+    }
+  },
+  "theme": {
+    "toggle": "Cambiar tema"
+  }
+}

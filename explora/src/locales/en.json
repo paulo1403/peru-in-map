@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "home": "Home",
+    "map": "Map"
+  },
+  "hero": {
+    "title": "Exploration Map",
+    "subtitle": "Navigate Peru and find your next destination."
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with",
+    "inPeru": "in Peru"
+  },
+  "map": {
+    "filters": {
+      "all": "All",
+      "cafe": "Cafes",
+      "culture": "Culture",
+      "park": "Parks",
+      "bar": "Bars"
+    }
+  },
+  "theme": {
+    "toggle": "Toggle theme"
+  }
+}
