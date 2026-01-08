@@ -3,14 +3,36 @@ import type { Place, Review, ApiResponse, PaginatedResponse, PlaceFilters, Searc
 const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api';
 
 class ApiService {
+  private getAuthToken(): string | null {
+    if (typeof window === 'undefined') return null;
+    
+    try {
+      const authStorage = localStorage.getItem('auth-storage');
+      if (authStorage) {
+        const { state } = JSON.parse(authStorage);
+        return state?.token || null;
+      }
+    } catch (error) {
+      console.error('Error getting auth token:', error);
+    }
+    return null;
+  }
+
   private async fetchApi<T>(endpoint: string, options?: RequestInit): Promise<ApiResponse<T>> {
     try {
+      const token = this.getAuthToken();
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
-        headers: {
-          'Content-Type': 'application/json',
-          ...options?.headers,
-        },
+        headers,
       });
 
       if (!response.ok) {

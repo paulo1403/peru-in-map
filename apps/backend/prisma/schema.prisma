@@ -10,6 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  
+  // Campos adicionales del perfil
+  avatar    String?  // URL de la foto de perfil
+  bio       String?  // Biografía corta
+  location  String?  // Ciudad/ubicación
+  birthDate DateTime? // Fecha de nacimiento
+  website   String?  // Sitio web personal
+  instagram String?  // Username de Instagram
+  interests String[] @default([]) // Categorías de interés (cafe, restaurant, etc.)
+  
+  // Gamificación
+  level     Int      @default(1) // Nivel del usuario (1-10)
+  badges    String[] @default([]) // Insignias ganadas
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviews Review[]
+
+  @@map("users")
+}
+
 model Place {
   id          String   @id @default(cuid())
   name        String
@@ -32,13 +59,14 @@ model Place {
 model Review {
   id        String   @id @default(cuid())
   placeId   String
-  userId    String?
+  userId    String
   rating    Int
   comment   String?
   isVerified Boolean @default(false)
   createdAt DateTime @default(now())
 
   place Place @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }

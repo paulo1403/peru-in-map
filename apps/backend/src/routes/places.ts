@@ -3,6 +3,7 @@ import { PlaceService } from '../services/place.service';
 import { ReviewService } from '../services/review.service';
 import { createPlaceSchema, updatePlaceSchema, searchParamsSchema } from '../schemas/place.schema';
 import { createReviewSchema, updateReviewSchema } from '../schemas/review.schema';
+import { authMiddleware } from './auth';
 import type { ApiResponse, PaginatedResponse } from '@shared/types';
 
 const places = new Hono();
@@ -166,12 +167,13 @@ places.get('/:id/reviews', async (c) => {
   });
 });
 
-// POST /places/:id/reviews - Create review for a place
-places.post('/:id/reviews', async (c) => {
+// POST /places/:id/reviews - Create review for a place (requires authentication)
+places.post('/:id/reviews', authMiddleware, async (c) => {
   try {
     const placeId = c.req.param('id');
+    const userId = c.get('userId'); // From authMiddleware
     const body = await c.req.json();
-    const data = createReviewSchema.parse({ ...body, placeId });
+    const data = createReviewSchema.parse({ ...body, placeId, userId });
 
     const review = await reviewService.create(data);
 

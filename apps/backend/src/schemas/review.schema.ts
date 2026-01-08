@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const createReviewSchema = z.object({
-  placeId: z.string().uuid(),
+  placeId: z.string(),
   rating: z.number().min(1).max(5),
   comment: z.string().max(500).optional(),
-  userId: z.string().uuid().optional(), // Optional for anonymous reviews
+  userId: z.string(), // Required - from auth middleware
 });
 
 export const updateReviewSchema = z.object({

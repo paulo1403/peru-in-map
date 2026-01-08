@@ -1,9 +1,40 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function seed() {
   console.log('🌱 Seeding database...');
+
+  // Crear usuarios de ejemplo
+  console.log('Creating users...');
+  const hashedPassword = await bcrypt.hash('password123', 10);
+  
+  const user1 = await prisma.user.create({
+    data: {
+      name: 'María García',
+      email: 'maria@ejemplo.com',
+      password: hashedPassword,
+    },
+  });
+
+  const user2 = await prisma.user.create({
+    data: {
+      name: 'Carlos Rodríguez',
+      email: 'carlos@ejemplo.com',
+      password: hashedPassword,
+    },
+  });
+
+  const user3 = await prisma.user.create({
+    data: {
+      name: 'Ana Torres',
+      email: 'ana@ejemplo.com',
+      password: hashedPassword,
+    },
+  });
+
+  console.log(`✅ Created ${3} users`);
 
   // Crear algunos lugares de ejemplo en Lima, Perú
   const places = [
@@ -139,27 +170,51 @@ async function seed() {
   }
 
   // Crear algunas reseñas de ejemplo
-  const reviews = [
-    {
-      placeId: (await prisma.place.findFirst({ where: { name: 'Café Honradez' } }))!.id,
-      rating: 5,
-      comment: 'Excelente café con una vista increíble. El servicio es amable y la comida deliciosa.',
-    },
-    {
-      placeId: (await prisma.place.findFirst({ where: { name: 'Café Honradez' } }))!.id,
-      rating: 4,
-      comment: 'Muy buen lugar para desayunar. Los precios son razonables.',
-    },
-    {
-      placeId: (await prisma.place.findFirst({ where: { name: 'Parque Kennedy' } }))!.id,
-      rating: 5,
-      comment: 'Uno de mis lugares favoritos en Lima. Siempre hay algo nuevo que ver.',
-    },
-  ];
+  console.log('Creating reviews...');
+  
+  const cafeHonradez = await prisma.place.findFirst({ where: { name: 'Café Honradez' } });
+  const parqueKennedy = await prisma.place.findFirst({ where: { name: 'Parque Kennedy' } });
+  const pukuPuku = await prisma.place.findFirst({ where: { name: 'Puku Puku' } });
 
-  for (const review of reviews) {
+  if (cafeHonradez) {
     await prisma.review.create({
-      data: review,
+      data: {
+        placeId: cafeHonradez.id,
+        userId: user1.id,
+        rating: 5,
+        comment: 'Excelente café con una vista increíble. El servicio es amable y la comida deliciosa.',
+      },
+    });
+
+    await prisma.review.create({
+      data: {
+        placeId: cafeHonradez.id,
+        userId: user2.id,
+        rating: 4,
+        comment: 'Muy buen lugar para desayunar. Los precios son razonables.',
+      },
+    });
+  }
+
+  if (parqueKennedy) {
+    await prisma.review.create({
+      data: {
+        placeId: parqueKennedy.id,
+        userId: user3.id,
+        rating: 5,
+        comment: 'Uno de mis lugares favoritos en Lima. Siempre hay algo nuevo que ver.',
+      },
+    });
+  }
+
+  if (pukuPuku) {
+    await prisma.review.create({
+      data: {
+        placeId: pukuPuku.id,
+        userId: user1.id,
+        rating: 5,
+        comment: 'La mejor comida nikkei que he probado. Totalmente recomendado!',
+      },
     });
   }
 

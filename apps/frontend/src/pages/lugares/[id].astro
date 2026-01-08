@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { ReviewForm } from '../../components/ReviewForm';
 import { api } from '../../services/api';
 
 export const prerender = false;
@@ -130,7 +131,7 @@ const categoryLabels: Record<string, string> = {
         )}
 
         <!-- Reviews -->
-        <div class="bg-surface rounded-xl p-6">
+        <div class="bg-surface rounded-xl p-6 mb-8">
           <h2 class="text-xl font-semibold text-text mb-4">
             Reseñas {reviews.length > 0 && `(${reviews.length})`}
           </h2>
@@ -163,6 +164,11 @@ const categoryLabels: Record<string, string> = {
           ) : (
             <p class="text-secondary">No hay reseñas aún. ¡Sé el primero en dejar una!</p>
           )}
+        </div>
+
+        <!-- Add Review Form -->
+        <div class="bg-white rounded-xl border border-border p-6">
+          <ReviewForm client:load placeId={place.id} />
         </div>
       </div>
 
@@ -203,10 +209,6 @@ const categoryLabels: Record<string, string> = {
               </div>
             )}
           </div>
-
-          <button class="w-full mt-6 px-4 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition">
-            Dejar una reseña
-          </button>
         </div>
       </div>
     </div>
