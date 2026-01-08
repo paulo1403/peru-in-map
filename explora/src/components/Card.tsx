@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface CardProps {
   title?: string;
@@ -19,15 +19,15 @@ export default function Card({
 }: CardProps) {
   return (
     <div
-      className={`bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow ${onClick ? 'cursor-pointer' : ''} ${className}`}
+      className={`bg-background/90 backdrop-blur-sm border border-gray-200/50 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 ${onClick ? 'cursor-pointer' : ''} ${className}`}
       onClick={onClick}
     >
       {image && (
         <img src={image} alt={title || 'Card image'} className="w-full h-48 object-cover" />
       )}
       <div className="p-4">
-        {title && <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>}
-        {description && <p className="text-gray-600 mb-4">{description}</p>}
+        {title && <h3 className="text-lg font-semibold text-text mb-2">{title}</h3>}
+        {description && <p className="text-secondary mb-4">{description}</p>}
         {children}
       </div>
     </div>

@@ -68,8 +68,8 @@ export default function LimaMap() {
               onClick={() => setActiveCategory(cat.id)}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                  ? 'bg-brand text-white shadow-md'
+                  : 'bg-background text-secondary hover:bg-gray-100 border border-gray-200'
               }`}
               type="button"
             >
@@ -96,11 +96,11 @@ export default function LimaMap() {
             <Marker key={place.id} position={place.position}>
               <Popup>
                 <div className="text-center min-w-[200px]">
-                  <strong className="block text-base font-bold text-gray-900">{place.name}</strong>
-                  <span className="mb-2 block text-xs font-semibold text-red-600 uppercase tracking-wider">
+                  <strong className="block text-base font-bold text-text">{place.name}</strong>
+                  <span className="mb-2 block text-xs font-semibold text-brand uppercase tracking-wider">
                     {CATEGORIES.find((c) => c.id === place.category)?.label || place.category}
                   </span>
-                  <p className="m-0 text-sm text-gray-600 leading-relaxed">{place.description}</p>
+                  <p className="m-0 text-sm text-secondary leading-relaxed">{place.description}</p>
                 </div>
               </Popup>
             </Marker>

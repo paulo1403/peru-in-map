@@ -1,1 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+:root {
+  --color-brand: #dc2626; /* Rojo principal - light */
+  --color-brand-hover: #b91c1c; /* Rojo hover - light */
+  --color-secondary: #6b7280; /* Gris secundario - light */
+  --color-accent: #f3f4f6; /* Gris claro - light */
+  --color-background: #ffffff; /* Fondo blanco - light */
+  --color-text: #111827; /* Texto oscuro - light */
+  --color-gradient-start: #ff6b6b; /* Gradiente rosa */
+  --color-gradient-end: #4ecdc4; /* Gradiente turquesa */
+}
+
+.dark {
+  --color-brand: #ef4444; /* Rojo más claro - dark */
+  --color-brand-hover: #dc2626; /* Rojo hover - dark */
+  --color-secondary: #9ca3af; /* Gris secundario - dark */
+  --color-accent: #374151; /* Gris oscuro - dark */
+  --color-background: #111827; /* Fondo oscuro - dark */
+  --color-text: #f9fafb; /* Texto claro - dark */
+  --color-gradient-start: #ff4757; /* Gradiente rosa oscuro */
+  --color-gradient-end: #3742fa; /* Gradiente azul oscuro */
+}
+
+@theme {
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-background: var(--color-background);
+  --color-text: var(--color-text);
+  --color-gradient-start: var(--color-gradient-start);
+  --color-gradient-end: var(--color-gradient-end);
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  font-family: var(--font-family-sans);
+}
+
+body {
+  background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+  min-height: 100vh;
+}

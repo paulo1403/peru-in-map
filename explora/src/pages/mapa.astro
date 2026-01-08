@@ -10,16 +10,16 @@ const description = 'Explora el mapa de Perú, descubre rutas y lugares increíb
 <Layout title={title} description={description}>
   <div class="container mx-auto px-4 py-8">
     <div class="mb-8 flex items-center gap-3">
-      <div class="rounded-lg bg-red-100 p-2 text-red-600">
+      <div class="rounded-2xl bg-gradient-to-r from-brand to-brand-hover p-3 text-white shadow-lg">
         <IconMapPin size={32} />
       </div>
       <div>
-        <h1 class="text-3xl font-bold text-gray-900">Mapa de Exploración</h1>
-        <p class="text-gray-600">Navega por el Perú y encuentra tu próximo destino.</p>
+        <h1 class="text-4xl font-bold text-text mb-2">Mapa de Exploración</h1>
+        <p class="text-secondary text-lg">Navega por el Perú y encuentra tu próximo destino.</p>
       </div>
     </div>
 
-    <div class="w-full">
+    <div class="bg-background/50 backdrop-blur-sm rounded-3xl p-6 shadow-2xl">
       <PeruMap client:only="react" />
     </div>
   </div>
