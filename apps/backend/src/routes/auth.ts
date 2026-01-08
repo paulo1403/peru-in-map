@@ -50,6 +50,7 @@ auth.post('/register', async (c) => {
         id: true,
         name: true,
         email: true,
+        role: true,
         createdAt: true,
       },
     });
@@ -113,6 +114,7 @@ auth.post('/login', async (c) => {
           id: user.id,
           name: user.name,
           email: user.email,
+          role: user.role,
           createdAt: user.createdAt,
         },
         token,
@@ -146,6 +148,7 @@ auth.get('/me', async (c) => {
         id: true,
         name: true,
         email: true,
+        role: true,
         createdAt: true,
       },
     });

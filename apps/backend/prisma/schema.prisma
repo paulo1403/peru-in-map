@@ -16,6 +16,7 @@ model User {
   email     String   @unique
   password  String
   name      String
+  role      UserRole @default(USER) // Rol del usuario
   
   // Campos adicionales del perfil
   avatar    String?  // URL de la foto de perfil
@@ -83,4 +84,9 @@ enum PlaceCategory {
   shopping
   sports
   other
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }

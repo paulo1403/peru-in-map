@@ -13,7 +13,8 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "make-admin": "tsx src/scripts/make-admin.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",

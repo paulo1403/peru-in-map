@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { IconMapPin, IconMenu2, IconX } from '@tabler/icons-react';
 import { LanguageSelector } from './LanguageSelector';
-import { AuthModal } from './AuthModal';
 import { useLanguageStore } from '../stores/languageStore';
 import { useAuthStore } from '../stores/authStore';
 
 export function Header() {
   const { language } = useLanguageStore();
   const { isAuthenticated, user, logout } = useAuthStore();
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -90,6 +88,14 @@ export function Header() {
                       >
                         {t.myProfile}
                       </a>
+                      {user.role === 'ADMIN' && (
+                        <a
+                          href="/admin/lugares"
+                          className="block w-full px-4 py-2 text-left text-text hover:bg-background transition font-medium text-purple-600"
+                        >
+                          Panel Admin
+                        </a>
+                      )}
                       <button
                         onClick={() => {
                           logout();
@@ -104,12 +110,12 @@ export function Header() {
                 )}
               </div>
             ) : (
-              <button
-                onClick={() => setShowAuthModal(true)}
+              <a
+                href="/login"
                 className="px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition"
               >
                 {t.login}
-              </button>
+              </a>
             )}
           </nav>
 
@@ -180,6 +186,15 @@ export function Header() {
                     >
                       {t.myProfile}
                     </a>
+                    {user.role === 'ADMIN' && (
+                      <a
+                        href="/admin/lugares"
+                        className="px-4 py-3 text-purple-600 hover:bg-purple-50 rounded-lg font-semibold transition"
+                        onClick={() => setShowMobileMenu(false)}
+                      >
+                        Panel Admin
+                      </a>
+                    )}
                     <button
                       onClick={() => {
                         logout();
@@ -191,26 +206,19 @@ export function Header() {
                     </button>
                   </>
                 ) : (
-                  <button
-                    onClick={() => {
-                      setShowAuthModal(true);
-                      setShowMobileMenu(false);
-                    }}
-                    className="mx-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition"
+                  <a
+                    href="/login"
+                    className="mx-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition text-center"
+                    onClick={() => setShowMobileMenu(false)}
                   >
                     {t.login}
-                  </button>
+                  </a>
                 )}
               </nav>
             </div>
           </>
         )}
       </header>
-
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
-      />
     </>
   );
 }
