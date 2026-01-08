@@ -1,19 +1,23 @@
-# Perú In Map 🌎
+# QueHacer.pe 🌎
 
-Repositorio principal del proyecto de mapas y exploración en Perú.
+Plataforma para descubrir lugares locales en Perú a través de mapas interactivos.
 
 ## 📁 Estructura del Proyecto
 
 Este es un **monorepo** que utiliza **pnpm workspaces** para gestionar las dependencias:
 
 ```
-peru-in-map/
-├── explora/          # 🖥️ Aplicación principal (Astro + React)
-├── docs/            # 📚 Documentación
-├── BRANDING.md      # 🎨 Guía de branding
-├── MVP.md          # 🎯 Definición del MVP
-├── PRODUCT_MANIFESTO.md  # 📋 Manifiesto del producto
-└── README.md       # 📖 Este archivo
+quehacer-pe/
+├── apps/
+│   ├── frontend/          # 🖥️ Aplicación web (Astro + React)
+│   └── backend/           # 🚀 API (Hono + Node.js)
+├── packages/
+│   └── shared/            # 📦 Utilidades y tipos compartidos
+├── docs/                  # 📚 Documentación
+├── BRANDING.md           # 🎨 Guía de branding
+├── MVP.md               # 🎯 Definición del MVP
+├── PRODUCT_MANIFESTO.md # 📋 Manifiesto del producto
+└── README.md            # 📖 Este archivo
 ```
 
 ## 🚀 Inicio Rápido
@@ -33,8 +37,14 @@ pnpm install
 ### Desarrollo
 
 ```bash
-# Iniciar servidor de desarrollo
+# Iniciar solo frontend
 pnpm run dev
+
+# Iniciar solo backend
+pnpm run dev:backend
+
+# Iniciar ambos en paralelo
+pnpm run dev:full
 
 # Construir para producción
 pnpm run build
@@ -50,70 +60,74 @@ pnpm run format
 ### Comandos por Workspace
 
 ```bash
-# Solo en explora/
-pnpm --filter explora dev
-pnpm --filter explora build
-pnpm --filter explora test
+# Frontend
+pnpm --filter frontend dev
+pnpm --filter frontend build
+pnpm --filter frontend test
+
+# Backend
+pnpm --filter backend dev
+pnpm --filter backend db:generate
+pnpm --filter backend db:push
 ```
 
 ## 🛠️ Tecnologías
 
+### Frontend (`apps/frontend`)
 - **Framework**: Astro + React
 - **UI**: Tailwind CSS v4
 - **Mapas**: Leaflet + React Leaflet
 - **Estado**: Zustand
 - **Lenguaje**: TypeScript
-- **Linting/Formatting**: Biome
-- **Testing**: Vitest
+
+### Backend (`apps/backend`)
+- **Framework**: Hono (Node.js)
+- **Base de datos**: PostgreSQL + Prisma
+- **Validación**: Zod
+- **Lenguaje**: TypeScript
+
+### Shared (`packages/shared`)
+- **Tipos**: TypeScript interfaces
+- **Utilidades**: Funciones compartidas
+
 ## 📦 Workspaces
 
-### explora
+### apps/frontend
 
-La aplicación principal construida con Astro y React.
+Aplicación web principal construida con Astro.
 
-- **Ubicación**: `explora/`
+- **Ubicación**: `apps/frontend/`
 - **Tecnologías**: Astro, React, TypeScript, Tailwind CSS, Zustand
-- **Comandos**: `pnpm --filter explora <command>`
+- **Comandos**: `pnpm --filter frontend <command>`
+
+### apps/backend
+
+API REST construida con Hono.
+
+- **Ubicación**: `apps/backend/`
+- **Tecnologías**: Hono, Node.js, TypeScript, Prisma, PostgreSQL
+- **Comandos**: `pnpm --filter backend <command>`
+
+### packages/shared
+
+Utilidades y tipos compartidos.
+
+- **Ubicación**: `packages/shared/`
+- **Tecnologías**: TypeScript
+- **Comandos**: `pnpm --filter shared <command>`
 
 ## 🤝 Contribución
 
-### General
-- **Gestor de paquetes**: Uso exclusivo de `pnpm` (`install`, `add`, `dlx`, `dev`, `build`).
-- **TypeScript**: Obligatorio y en modo estricto. Evitar `any` y `unknown`.
-- **Estilos**: Tailwind CSS es la única solución. Priorizar legibilidad.
-- **Iconos**: `tabler-icons` con importación explícita (no barrels).
-- **Sintaxis**: Preferir ESM y sintaxis moderna.
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-### Organización de Código
-- Componentes pequeños con una sola responsabilidad.
-- Preferir composición frente a configuración.
-- Código compartido en `components`, `layouts`, `lib`, `utils`.
-- Evitar abstracciones prematuras.
+## 📄 Licencia
 
-### Calidad y Testing
-- **CI/CD**: Revisar `.github/workflows`.
-- **Linting & Formatting**: [Biome](https://biomejs.dev/).
-  - Lint: `pnpm lint`
-  - Format: `pnpm format`
-  - Check (ambos): `pnpm check`
-- **Tests**: `pnpm test` (Vitest).
-- **Requisito**: No se acepta código con errores de tipos, lint o tests fallidos.
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-### Commits y PRs
-- Título: `[explora] Descripción clara`
-- PRs pequeños y enfocados.
-- Verificar con lint y test antes de subir.
+## 📞 Contacto
 
-## 📊 Estado del Proyecto
-
-- [x] Inicialización del proyecto (`explora`)
-- [x] Configuración de Tailwind CSS v4 y React
-- [x] Definición final de nombre de marca (QueHacer.pe)
-- [x] Implementación de mapa base con Leaflet
-- [x] Sistema de internacionalización (ES/EN) con Zustand
-- [x] Componentes reutilizables y theming
-- [x] Optimización para móviles
-- [x] Configuración de pnpm workspaces
-- [ ] Despliegue y CI/CD
-- [ ] Más lugares y contenido
-- [ ] Funcionalidades avanzadas (PWA, etc.)
+QueHacer.pe - [contacto@quehacer.pe](mailto:contacto@quehacer.pe)

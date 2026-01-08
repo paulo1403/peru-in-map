@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "Home",
+    "map": "Map",
+    "places": "Places",
+    "about": "About"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "places": {
+    "categories": {
+      "cafe": "Cafe",
+      "restaurant": "Restaurant",
+      "bar": "Bar",
+      "park": "Park",
+      "museum": "Museum",
+      "theater": "Theater",
+      "market": "Market",
+    "shopping": "Shopping",
+      "sports": "Sports",
+      "other": "Other"
+    },
+    "filters": {
+      "all": "All",
+      "free": "Free",
+      "paid": "Paid",
+      "rating": "Rating",
+      "distance": "Distance",
+      "category": "Category"
+    },
+    "details": {
+      "address": "Address",
+      "phone": "Phone",
+      "website": "Website",
+      "hours": "Hours",
+      "price": "Price",
+      "rating": "Rating",
+      "reviews": "Reviews"
+    }
+  },
+  "home": {
+    "title": "QueHacer.pe",
+    "subtitle": "Platform to discover local places in Peru",
+    "explore": "Explore Map",
+    "featured": "Featured",
+    "nearby": "Near you"
+  },
+  "hero": {
+    "title": "Discover QueHacer.pe",
+    "subtitle": "Amazing places in Peru"
+  },
+  "footer": {
+    "copyright": "© 2026 QueHacer.pe. All rights reserved.",
+    "madeWith": "Made with",
+    "inPeru": "in Peru"
+  },
+  "map": {
+    "filters": {
+      "all": "All",
+      "cafe": "Cafes",
+      "culture": "Culture",
+      "park": "Parks",
+      "bar": "Bars"
+    }
+  },
+  "theme": {
+    "toggle": "Toggle theme"
+  }
+}

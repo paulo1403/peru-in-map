@@ -1,9 +1,303 @@
-Este proyecto es una plataforma digital de descubrimiento local enfocada en ciudades del Perú. Su propósito es ayudar a las personas a decidir qué hacer y a dónde ir de manera rápida, clara y confiable, combinando mapas interactivos con contenido curado por ciudad. La idea central es reducir el tiempo y la fricción que hoy existen al buscar planes, lugares o eventos, concentrando la información relevante en un solo lugar y presentándola de forma visual y fácil de explorar.
+Perfecto, vamos a bajarlo a **backlog accionable** y luego te doy una **recomendación técnica realista**, pensando en MVP, escalabilidad y que no te estorbe en 3–6 meses.
 
-El producto se construye ciudad por ciudad, empezando por una o dos ciudades principales y escalando progresivamente. Cada ciudad funciona como un pequeño ecosistema independiente, con su propio mapa, categorías de lugares y contenido editorial. El mapa es el núcleo de la experiencia: permite explorar, filtrar y entender el territorio, mientras que el contenido sirve como puerta de entrada, atrayendo tráfico y dando contexto a lo que se ve en el mapa. El usuario no viene a “leer un blog”, viene a tomar una decisión concreta.
+---
 
-El MVP debe ser intencionalmente simple. No incluye cuentas de usuario, pagos, ni funcionalidades avanzadas. El foco está en que el mapa funcione bien, que el contenido sea útil y que la navegación sea clara. Es preferible tener pocas categorías y pocos lugares bien seleccionados antes que cubrir todo de forma superficial. El objetivo inicial no es monetizar, sino validar que las personas realmente usan la plataforma para planear salidas y descubrir lugares.
+# 📋 Backlog de Features (priorizado para MVP)
 
-Desde el punto de vista de negocio, el valor se construye a través de tráfico local con alta intención. A medida que el proyecto gana visibilidad y confianza, se abren oportunidades de monetización como publicidad local, lugares destacados, colaboraciones por ciudad y, más adelante, funciones premium para usuarios. Todo el crecimiento se basa en utilidad real y relevancia local, no en volumen artificial.
+Voy a usar **épicas → features → criterios de “listo”**, para que puedas avanzar incrementalmente.
 
-Este contexto sirve como guía para programar el MVP: cada decisión de implementación debe responder a si mejora la experiencia de descubrimiento, si ayuda al usuario a decidir más rápido y si mantiene el proyecto simple y escalable. Si una funcionalidad no aporta a eso en esta etapa, queda fuera. El éxito del MVP se mide por uso, retorno y claridad, no por cantidad de features.
+---
+
+## 🧱 ÉPICA 1 – Base del producto (indispensable)
+
+### 1.1 Lugares (core absoluto)
+
+**Feature**
+
+* Crear y listar lugares (comerciales y no comerciales)
+
+**Incluye**
+
+* Nombre
+* Tipo (restaurante, parque, calle, etc.)
+* Categoría
+* Distrito / ciudad
+* Descripción corta
+* Ubicación (lat/lng)
+* Tags simples (tranquilo, barato, romántico)
+
+**Listo cuando**
+
+* Un lugar se puede crear desde admin
+* Aparece en un listado público
+* Se puede filtrar por tipo y distrito
+
+---
+
+### 1.2 Descubrimiento sin mapa
+
+**Feature**
+
+* Listado principal de lugares
+
+**Incluye**
+
+* Búsqueda por texto
+* Filtros básicos
+* Orden por relevancia
+
+**Listo cuando**
+
+* El mapa no es necesario para descubrir lugares
+* El usuario puede decidir solo con el listado
+
+---
+
+## ⭐ ÉPICA 2 – Confianza y comunidad
+
+### 2.1 Ratings
+
+**Feature**
+
+* Puntuación por estrellas (1–5)
+
+**Reglas**
+
+* Un rating por usuario
+* Promedio visible
+* No editable infinitamente
+
+**Listo cuando**
+
+* Se muestra rating confiable
+* No se puede manipular fácilmente
+
+---
+
+### 2.2 Comentarios
+
+**Feature**
+
+* Comentarios por lugar
+
+**Incluye**
+
+* Texto corto
+* Fecha
+* Moderación desde admin
+
+**Listo cuando**
+
+* Los comentarios aportan contexto real
+* El admin puede ocultarlos
+
+---
+
+## 🗺️ ÉPICA 3 – Contexto visual (complemento)
+
+### 3.1 Mapa
+
+**Feature**
+
+* Visualización de lugares en mapa
+
+**Incluye**
+
+* Pin por lugar
+* Filtro sincronizado con listado
+* Vista opcional
+
+**Listo cuando**
+
+* El mapa suma, no estorba
+* No es obligatorio usarlo
+
+---
+
+### 3.2 Cercanía
+
+**Feature**
+
+* Ver lugares cerca del usuario
+
+**Incluye**
+
+* Permiso de ubicación
+* Radio configurable
+
+**Listo cuando**
+
+* El usuario puede decir “qué hay cerca”
+
+---
+
+## ❤️ ÉPICA 4 – Retención
+
+### 4.1 Guardar lugares
+
+**Feature**
+
+* Favoritos
+
+**Listo cuando**
+
+* El usuario vuelve por sus guardados
+
+---
+
+### 4.2 Planes (v1)
+
+**Feature**
+
+* Colecciones curadas de lugares
+
+**Ejemplos**
+
+* Plan tranquilo
+* Plan romántico
+* Plan gratis
+
+**Listo cuando**
+
+* Un plan ayuda a decidir rápido
+
+---
+
+## 🛠️ ÉPICA 5 – Panel Admin (clave)
+
+### 5.1 Gestión de lugares
+
+* Crear / editar / desactivar lugares
+
+### 5.2 Moderación
+
+* Aprobar comentarios
+* Editar categorías
+
+### 5.3 Destacados manuales
+
+* Marcar lugares como “destacado”
+
+**Listo cuando**
+
+* El negocio puede operar sin devs
+
+---
+
+## 💰 ÉPICA 6 – Monetización inicial
+
+### 6.1 Lugares destacados
+
+**Feature**
+
+* Destacar lugares por distrito o categoría
+
+**Reglas**
+
+* Cupos limitados
+* Visualmente claro
+
+---
+
+### 6.2 Planes patrocinados
+
+**Feature**
+
+* Lugares pagos dentro de planes
+
+**Regla**
+
+* El plan no se vende, se curan lugares
+
+---
+
+## 👤 ÉPICA 7 – Usuario Plus (post-MVP)
+
+### 7.1 Recomendaciones
+
+* Basadas en guardados y uso
+
+### 7.2 Alertas
+
+* Lugares cercanos o poco concurridos
+
+---
+
+# 🧠 Recomendación Tecnológica (opinión honesta)
+
+### Frontend
+
+**Astro (SSG + islands)**
+
+* SEO excelente
+* Rápido
+* Ideal para contenido y discovery
+* Perfecto para ciudades y lugares
+
+👉 Mejor que Vite puro para este caso.
+
+---
+
+### Backend
+
+Aquí va lo importante 👇
+
+#### ❌ Vite + Bun (ahora no)
+
+Bun es interesante, pero:
+
+* Ecosistema aún verde
+* Riesgo innecesario para MVP
+* Hosting más limitado
+
+Para experimentar: sí
+Para negocio: todavía no
+
+---
+
+### ✅ Stack recomendado (pragmático)
+
+#### Backend API
+
+**Node.js + TypeScript**
+
+* Framework: **Hono** o **Fastify**
+* REST simple (no GraphQL al inicio)
+
+#### Base de datos
+
+**PostgreSQL**
+
+* Con PostGIS (cuando escales mapas)
+* Prisma como ORM
+
+#### Auth (cuando toque)
+
+* Email magic link
+* O auth simple al inicio
+
+---
+
+### Admin
+
+* Puede vivir dentro del mismo proyecto
+* Rutas protegidas
+* UI simple
+
+---
+
+### Infraestructura (simple)
+
+* Frontend: Vercel / Netlify
+* Backend: Fly.io / Railway
+* DB: Supabase o Railway
+
+---
+
+## 🔑 Regla técnica del MVP
+
+> Si una tecnología no mejora discovery, velocidad o confianza, no entra.
+
+---
+
+

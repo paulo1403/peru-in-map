@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "map": "Mapa",
+    "places": "Lugares",
+    "about": "Acerca de"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "view": "Ver",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "places": {
+    "categories": {
+      "cafe": "Café",
+      "restaurant": "Restaurante",
+      "bar": "Bar",
+      "park": "Parque",
+      "museum": "Museo",
+      "theater": "Teatro",
+      "market": "Mercado",
+      "shopping": "Compras",
+      "sports": "Deportes",
+      "other": "Otro"
+    },
+    "filters": {
+      "all": "Todos",
+      "free": "Gratis",
+      "paid": "Pago",
+      "rating": "Calificación",
+      "distance": "Distancia",
+      "category": "Categoría"
+    },
+    "details": {
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "website": "Sitio web",
+      "hours": "Horarios",
+      "price": "Precio",
+      "rating": "Calificación",
+      "reviews": "Reseñas"
+    }
+  },
+  "home": {
+    "title": "QueHacer.pe",
+    "subtitle": "Plataforma para descubrir lugares locales en Perú",
+    "explore": "Explorar Mapa",
+    "featured": "Destacados",
+    "nearby": "Cerca de ti"
+  },
+  "hero": {
+    "title": "Descubre QueHacer.pe",
+    "subtitle": "Lugares increíbles en Perú"
+  },
+  "footer": {
+    "copyright": "© 2026 QueHacer.pe. Todos los derechos reservados.",
+    "madeWith": "Hecho con",
+    "inPeru": "en Perú"
+  },
+  "map": {
+    "filters": {
+      "all": "Todos",
+      "cafe": "Cafés",
+      "culture": "Cultura",
+      "park": "Parques",
+      "bar": "Bares"
+    }
+  },
+  "theme": {
+    "toggle": "Cambiar tema"
+  }
+}

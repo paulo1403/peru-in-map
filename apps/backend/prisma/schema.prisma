@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Place {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    PlaceCategory
+  district    String
+  city        String
+  position    Json // PostGIS Point
+  tags        String[]
+  rating      Float   @default(0)
+  isSponsored Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reviews Review[]
+
+  @@map("places")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  placeId   String
+  userId    String?
+  rating    Int
+  comment   String?
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  place Place @relation(fields: [placeId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+enum PlaceCategory {
+  cafe
+  restaurant
+  bar
+  park
+  museum
+  theater
+  market
+  shopping
+  sports
+  other
+}

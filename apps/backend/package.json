@@ -1,0 +1,31 @@
+{
+  "name": "@quehacer-pe/backend",
+  "version": "0.0.1",
+  "description": "QueHacer.pe - Backend API with Hono",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsx build src/server.ts",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "setup": "cp .env.example .env && pnpm db:generate",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.8.0",
+    "@prisma/client": "^5.0.0",
+    "hono": "^4.0.0",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "prisma": "^5.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}

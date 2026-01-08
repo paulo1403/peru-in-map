@@ -1,32 +1,36 @@
 {
-  "name": "peru-in-map",
+  "name": "quehacer-pe",
   "private": true,
   "version": "0.0.1",
   "description": "QueHacer.pe - Plataforma para descubrir lugares locales en Perú",
   "scripts": {
-    "dev": "pnpm --filter explora dev",
-    "build": "pnpm --filter explora build",
-    "preview": "pnpm --filter explora preview",
-    "test": "pnpm --filter explora test",
-    "lint": "pnpm --filter explora lint",
-    "format": "pnpm --filter explora format",
-    "check": "pnpm --filter explora check",
-    "clean": "rm -rf explora/dist explora/node_modules && pnpm install"
+    "dev": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:full": "pnpm --parallel dev",
+    "build": "pnpm --filter frontend build",
+    "build:backend": "pnpm --filter backend build",
+    "build:all": "pnpm --parallel build",
+    "test": "pnpm --filter frontend test",
+    "test:backend": "pnpm --filter backend test",
+    "test:all": "pnpm --parallel test",
+    "lint": "pnpm --filter frontend lint",
+    "format": "pnpm --filter frontend format",
+    "clean": "rm -rf apps/*/dist apps/*/node_modules packages/*/dist packages/*/node_modules && pnpm install",
+    "db:generate": "pnpm --filter backend db:generate",
+    "db:push": "pnpm --filter backend db:push",
+    "db:migrate": "pnpm --filter backend db:migrate"
   },
   "keywords": [
     "peru",
-    "map",
     "local-discovery",
+    "places",
+    "maps",
     "astro",
     "react",
-    "leaflet"
+    "typescript"
   ],
   "author": "QueHacer.pe",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/paulo1403/peru-in-map"
-  },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
