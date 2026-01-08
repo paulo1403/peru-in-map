@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# Prisma generated client
+apps/backend/src/generated/
+
 # dependencies
 node_modules/
 

@@ -1,9 +1,13 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/db';
 import { authMiddleware } from './auth';
 
-export const profile = new Hono();
+type Variables = {
+  userId: string;
+};
+
+export const profile = new Hono<{ Variables: Variables }>();
 
 // Schema de actualización de perfil
 const updateProfileSchema = z.object({
@@ -24,20 +28,7 @@ profile.get('/me', authMiddleware, async (c) => {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        avatar: true,
-        bio: true,
-        location: true,
-        birthDate: true,
-        website: true,
-        instagram: true,
-        interests: true,
-        level: true,
-        badges: true,
-        createdAt: true,
+      include: {
         _count: {
           select: {
             reviews: true,
@@ -50,10 +41,13 @@ profile.get('/me', authMiddleware, async (c) => {
       return c.json({ error: 'Usuario no encontrado' }, 404);
     }
 
+    // Excluir el password de la respuesta
+    const { password, ...userWithoutPassword } = user;
+
     return c.json({
       success: true,
       data: {
-        ...user,
+        ...userWithoutPassword,
         reviewCount: user._count.reviews,
       },
     });
@@ -79,27 +73,14 @@ profile.put('/me', authMiddleware, async (c) => {
     const user = await prisma.user.update({
       where: { id: userId },
       data: updateData,
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        avatar: true,
-        bio: true,
-        location: true,
-        birthDate: true,
-        website: true,
-        instagram: true,
-        interests: true,
-        level: true,
-        badges: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
+
+    // Excluir el password de la respuesta
+    const { password, ...userWithoutPassword } = user;
 
     return c.json({
       success: true,
-      data: user,
+      data: userWithoutPassword,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -117,18 +98,7 @@ profile.get('/:id', async (c) => {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        name: true,
-        avatar: true,
-        bio: true,
-        location: true,
-        website: true,
-        instagram: true,
-        interests: true,
-        level: true,
-        badges: true,
-        createdAt: true,
+      include: {
         reviews: {
           select: {
             id: true,
@@ -161,10 +131,13 @@ profile.get('/:id', async (c) => {
       return c.json({ error: 'Usuario no encontrado' }, 404);
     }
 
+    // Excluir campos privados
+    const { password, email, ...publicProfile } = user;
+
     return c.json({
       success: true,
       data: {
-        ...user,
+        ...publicProfile,
         reviewCount: user._count.reviews,
       },
     });
