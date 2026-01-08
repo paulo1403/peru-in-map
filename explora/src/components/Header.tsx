@@ -6,7 +6,7 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <IconMap2 className="h-6 w-6 text-red-600" />
-          <span className="text-xl font-bold text-gray-900">Explora.pe</span>
+          <span className="text-xl font-bold text-gray-900">QueHacer.pe</span>
         </div>
         <nav>
           <ul className="flex items-center gap-6">

@@ -3,7 +3,7 @@
 Repositorio principal del proyecto de mapas y exploración en Perú.
 
 ## Estructura
-- **[explora](./explora)**: Aplicación web principal (Astro + React + Tailwind).
+- **[explora](./explora)**: Aplicación web principal (QueHacer.pe - Astro + React + Tailwind).
 - **[BRANDING.md](./BRANDING.md)**: Propuestas de naming y branding.
 
 ## Stack Tecnológico
@@ -45,5 +45,5 @@ Repositorio principal del proyecto de mapas y exploración en Perú.
 ## Estado del Proyecto
 - [x] Inicialización del proyecto (`explora`).
 - [x] Configuración de Tailwind y React.
-- [ ] Definición final de nombre de marca.
-- [ ] Implementación de mapa base.
+- [x] Definición final de nombre de marca (QueHacer.pe).
+- [x] Implementación de mapa base.
