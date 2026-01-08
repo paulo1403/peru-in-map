@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconMapPin } from '@tabler/icons-react';
+import { IconMapPin, IconMenu2, IconX } from '@tabler/icons-react';
 import { LanguageSelector } from './LanguageSelector';
 import { AuthModal } from './AuthModal';
 import { useLanguageStore } from '../stores/languageStore';
@@ -10,6 +10,7 @@ export function Header() {
   const { isAuthenticated, user, logout } = useAuthStore();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const nav = {
     es: {
@@ -34,14 +35,15 @@ export function Header() {
 
   return (
     <>
-      <header className="w-full border-b border-border bg-surface/80 backdrop-blur-md py-4 sticky top-0 z-50">
+      <header className="w-full border-b border-border bg-surface/95 backdrop-blur-md py-3 md:py-4 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4">
           <a href="/" className="flex items-center gap-2">
-            <IconMapPin className="w-6 h-6 text-primary" />
-            <span className="text-xl font-bold text-text">QueHacer.pe</span>
+            <IconMapPin className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+            <span className="text-lg md:text-xl font-bold text-text">QueHacer.pe</span>
           </a>
 
-          <nav className="flex items-center gap-4">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
             <a
               href="/"
               className="text-secondary hover:text-primary transition-colors font-medium"
@@ -69,10 +71,10 @@ export function Header() {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg font-semibold hover:bg-primary/20 transition"
                 >
-                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
                     {user.name[0].toUpperCase()}
                   </div>
-                  <span className="hidden md:inline">{user.name}</span>
+                  <span>{user.name}</span>
                 </button>
 
                 {showUserMenu && (
@@ -110,7 +112,99 @@ export function Header() {
               </button>
             )}
           </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-3">
+            {isAuthenticated && user && (
+              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
+                {user.name[0].toUpperCase()}
+              </div>
+            )}
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-2 text-text hover:text-primary transition"
+              aria-label="Toggle menu"
+            >
+              {showMobileMenu ? (
+                <IconX className="w-6 h-6" />
+              ) : (
+                <IconMenu2 className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {showMobileMenu && (
+          <>
+            <div 
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              onClick={() => setShowMobileMenu(false)}
+            />
+            <div className="absolute top-full left-0 right-0 bg-white border-b border-border shadow-lg z-50 md:hidden">
+              <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+                <a
+                  href="/"
+                  className="px-4 py-3 text-text hover:bg-background rounded-lg font-medium transition"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t.home}
+                </a>
+                <a
+                  href="/lugares"
+                  className="px-4 py-3 text-text hover:bg-background rounded-lg font-medium transition"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t.places}
+                </a>
+                <a
+                  href="/mapa"
+                  className="px-4 py-3 text-text hover:bg-background rounded-lg font-medium transition"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t.map}
+                </a>
+
+                <div className="border-t border-border my-2" />
+
+                <div className="px-4 py-2">
+                  <LanguageSelector />
+                </div>
+
+                {isAuthenticated && user ? (
+                  <>
+                    <a
+                      href="/perfil"
+                      className="px-4 py-3 text-text hover:bg-background rounded-lg font-medium transition"
+                      onClick={() => setShowMobileMenu(false)}
+                    >
+                      {t.myProfile}
+                    </a>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setShowMobileMenu(false);
+                      }}
+                      className="px-4 py-3 text-left text-text hover:bg-background rounded-lg font-medium transition"
+                    >
+                      {t.logout}
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setShowAuthModal(true);
+                      setShowMobileMenu(false);
+                    }}
+                    className="mx-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition"
+                  >
+                    {t.login}
+                  </button>
+                )}
+              </nav>
+            </div>
+          </>
+        )}
       </header>
 
       <AuthModal 

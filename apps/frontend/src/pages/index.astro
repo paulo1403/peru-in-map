@@ -18,12 +18,12 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
 
   <!-- Featured Places -->
   {featuredPlaces.length > 0 && (
-    <div class="py-20 bg-white">
+    <div class="py-12 md:py-20 bg-white">
       <div class="container mx-auto px-4">
-        <div class="flex items-end justify-between mb-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4">
           <div>
             <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Recomendados</p>
-            <h2 class="text-4xl font-bold text-text">Lugares Destacados</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-text">Lugares Destacados</h2>
           </div>
           <a 
             href="/lugares" 
@@ -36,14 +36,14 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {featuredPlaces.map((place: any) => (
             <a 
               href={`/lugares/${place.id}`}
               class="group block bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all duration-300"
             >
               <!-- Imagen -->
-              <div class="relative h-56 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
+              <div class="relative h-48 md:h-56 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 flex items-center justify-center overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent group-hover:from-black/40 transition-all"></div>
                 <svg class="w-16 h-16 text-primary/30 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -52,11 +52,11 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
               </div>
 
               <!-- Content -->
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-text group-hover:text-primary transition mb-2">
+              <div class="p-5 md:p-6">
+                <h3 class="text-lg md:text-xl font-bold text-text group-hover:text-primary transition mb-2">
                   {place.name}
                 </h3>
-                <p class="text-secondary mb-4 line-clamp-2 leading-relaxed">
+                <p class="text-sm md:text-base text-secondary mb-4 line-clamp-2 leading-relaxed">
                   {place.description}
                 </p>
                 
@@ -95,14 +95,14 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
   )}
 
   <!-- Categories -->
-  <div class="py-20 bg-gradient-to-br from-background to-white">
+  <div class="py-12 md:py-20 bg-gradient-to-br from-background to-white">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
+      <div class="text-center mb-8 md:mb-12">
         <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Categorías</p>
-        <h2 class="text-4xl font-bold text-text">Explora por Tipo</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-text">Explora por Tipo</h2>
       </div>
       
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
         {[
           { name: 'Cafés', icon: '☕', category: 'cafe', color: 'from-amber-500/10 to-orange-500/10' },
           { name: 'Restaurantes', icon: '🍽️', category: 'restaurant', color: 'from-red-500/10 to-pink-500/10' },
@@ -111,12 +111,12 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
         ].map((cat) => (
           <a 
             href={`/lugares?category=${cat.category}`}
-            class={`group relative bg-gradient-to-br ${cat.color} border border-border rounded-2xl p-8 text-center hover:border-primary hover:shadow-lg transition-all overflow-hidden`}
+            class={`group relative bg-gradient-to-br ${cat.color} border border-border rounded-xl md:rounded-2xl p-6 md:p-8 text-center hover:border-primary hover:shadow-lg transition-all overflow-hidden`}
           >
             <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors"></div>
             <div class="relative">
-              <div class="text-5xl mb-4 transform group-hover:scale-110 transition-transform">{cat.icon}</div>
-              <p class="font-bold text-text group-hover:text-primary transition">{cat.name}</p>
+              <div class="text-4xl md:text-5xl mb-3 md:mb-4 transform group-hover:scale-110 transition-transform">{cat.icon}</div>
+              <p class="font-bold text-sm md:text-base text-text group-hover:text-primary transition">{cat.name}</p>
             </div>
           </a>
         ))}
@@ -125,15 +125,15 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
   </div>
   
   <!-- CTA Final -->
-  <div class="py-20 bg-primary text-white">
+  <div class="py-12 md:py-20 bg-primary text-white">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para explorar?</h2>
-      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+      <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">¿Listo para explorar?</h2>
+      <p class="text-lg md:text-xl text-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">
         Descubre lugares únicos y comparte tus experiencias con la comunidad
       </p>
       <a 
         href="/lugares" 
-        class="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-bold hover:bg-white/90 transition-all shadow-lg"
+        class="inline-flex items-center gap-2 bg-white text-primary px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold hover:bg-white/90 transition-all shadow-lg text-sm md:text-base"
       >
         Comenzar a Explorar
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
