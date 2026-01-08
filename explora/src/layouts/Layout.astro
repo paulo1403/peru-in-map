@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import FooterClient from '../components/FooterClient';
 import HeaderClient from '../components/HeaderClient';
-import AppWrapper from '../components/AppWrapper';
 
 interface Props {
   title?: string;
@@ -26,12 +25,10 @@ const {
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen text-text">
-		<AppWrapper client:load>
-			<HeaderClient client:load />
-			<main class="flex-1">
-				<slot />
-			</main>
-			<FooterClient client:load />
-		</AppWrapper>
+		<HeaderClient client:load />
+		<main class="flex-1">
+			<slot />
+		</main>
+		<FooterClient client:load />
 	</body>
 </html>

@@ -1,19 +1,81 @@
-# Perú In Map
+# Perú In Map 🌎
 
 Repositorio principal del proyecto de mapas y exploración en Perú.
 
-## Estructura
-- **[explora](./explora)**: Aplicación web principal (QueHacer.pe - Astro + React + Tailwind).
-- **[BRANDING.md](./BRANDING.md)**: Propuestas de naming y branding.
+## 📁 Estructura del Proyecto
 
-## Stack Tecnológico
-- **Framework**: Astro (`explora`)
-- **UI Library**: React
-- **Estilos**: Tailwind CSS 4 (via Vite integration)
-- **Iconos**: Tabler Icons (`@tabler/icons-react`)
-- **Package Manager**: pnpm
+Este es un **monorepo** que utiliza **pnpm workspaces** para gestionar las dependencias:
 
-## Convenciones de Desarrollo
+```
+peru-in-map/
+├── explora/          # 🖥️ Aplicación principal (Astro + React)
+├── docs/            # 📚 Documentación
+├── BRANDING.md      # 🎨 Guía de branding
+├── MVP.md          # 🎯 Definición del MVP
+├── PRODUCT_MANIFESTO.md  # 📋 Manifiesto del producto
+└── README.md       # 📖 Este archivo
+```
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+
+- Node.js >= 18.0.0
+- pnpm >= 8.0.0
+
+### Instalación
+
+```bash
+# Instalar dependencias de todos los workspaces
+pnpm install
+```
+
+### Desarrollo
+
+```bash
+# Iniciar servidor de desarrollo
+pnpm run dev
+
+# Construir para producción
+pnpm run build
+
+# Ejecutar tests
+pnpm run test
+
+# Lint y formato
+pnpm run lint
+pnpm run format
+```
+
+### Comandos por Workspace
+
+```bash
+# Solo en explora/
+pnpm --filter explora dev
+pnpm --filter explora build
+pnpm --filter explora test
+```
+
+## 🛠️ Tecnologías
+
+- **Framework**: Astro + React
+- **UI**: Tailwind CSS v4
+- **Mapas**: Leaflet + React Leaflet
+- **Estado**: Zustand
+- **Lenguaje**: TypeScript
+- **Linting/Formatting**: Biome
+- **Testing**: Vitest
+## 📦 Workspaces
+
+### explora
+
+La aplicación principal construida con Astro y React.
+
+- **Ubicación**: `explora/`
+- **Tecnologías**: Astro, React, TypeScript, Tailwind CSS, Zustand
+- **Comandos**: `pnpm --filter explora <command>`
+
+## 🤝 Contribución
 
 ### General
 - **Gestor de paquetes**: Uso exclusivo de `pnpm` (`install`, `add`, `dlx`, `dev`, `build`).
@@ -42,8 +104,16 @@ Repositorio principal del proyecto de mapas y exploración en Perú.
 - PRs pequeños y enfocados.
 - Verificar con lint y test antes de subir.
 
-## Estado del Proyecto
-- [x] Inicialización del proyecto (`explora`).
-- [x] Configuración de Tailwind y React.
-- [x] Definición final de nombre de marca (QueHacer.pe).
-- [x] Implementación de mapa base.
+## 📊 Estado del Proyecto
+
+- [x] Inicialización del proyecto (`explora`)
+- [x] Configuración de Tailwind CSS v4 y React
+- [x] Definición final de nombre de marca (QueHacer.pe)
+- [x] Implementación de mapa base con Leaflet
+- [x] Sistema de internacionalización (ES/EN) con Zustand
+- [x] Componentes reutilizables y theming
+- [x] Optimización para móviles
+- [x] Configuración de pnpm workspaces
+- [ ] Despliegue y CI/CD
+- [ ] Más lugares y contenido
+- [ ] Funcionalidades avanzadas (PWA, etc.)

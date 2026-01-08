@@ -1,0 +1,34 @@
+{
+  "name": "peru-in-map",
+  "private": true,
+  "version": "0.0.1",
+  "description": "QueHacer.pe - Plataforma para descubrir lugares locales en Perú",
+  "scripts": {
+    "dev": "pnpm --filter explora dev",
+    "build": "pnpm --filter explora build",
+    "preview": "pnpm --filter explora preview",
+    "test": "pnpm --filter explora test",
+    "lint": "pnpm --filter explora lint",
+    "format": "pnpm --filter explora format",
+    "check": "pnpm --filter explora check",
+    "clean": "rm -rf explora/dist explora/node_modules && pnpm install"
+  },
+  "keywords": [
+    "peru",
+    "map",
+    "local-discovery",
+    "astro",
+    "react",
+    "leaflet"
+  ],
+  "author": "QueHacer.pe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulo1403/peru-in-map"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

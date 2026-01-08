@@ -1,4 +1,5 @@
 import { IconMap2 } from '@tabler/icons-react';
+import MobileMenu from './MobileMenu';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
@@ -9,7 +10,7 @@ export default function Header() {
           <IconMap2 className="h-6 w-6 text-brand" />
           <span className="text-xl font-bold text-text">QueHacer.pe</span>
         </div>
-        <nav className="flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-6">
           <a href="/" className="text-sm font-medium text-secondary hover:text-brand transition-colors">
             Inicio
           </a>
@@ -18,6 +19,9 @@ export default function Header() {
           </a>
           <ThemeToggle />
         </nav>
+        <div className="md:hidden">
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );

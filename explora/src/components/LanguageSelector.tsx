@@ -1,8 +1,8 @@
 import { IconLanguage } from '@tabler/icons-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageStore } from '../stores/languageStore';
 
 export default function LanguageSelector() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t } = useLanguageStore();
 
   return (
     <div className="relative">

@@ -1,8 +1,8 @@
 import { IconHeart } from '@tabler/icons-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageStore } from '../stores/languageStore';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   return (
     <footer className="w-full border-t border-gray-200/50 bg-background/80 backdrop-blur-md py-6 mt-auto">

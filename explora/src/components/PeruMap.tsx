@@ -9,7 +9,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useMemo, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageStore } from '../stores/languageStore';
 
 // Fix for default marker icon in React Leaflet
 // @ts-expect-error - Required for Leaflet default icon fix in Webpack/Vite environments
@@ -34,7 +34,7 @@ interface Place {
 }
 
 export default function LimaMap() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
   const [places, setPlaces] = useState<Place[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
@@ -60,7 +60,7 @@ export default function LimaMap() {
   return (
     <div className="flex flex-col gap-4">
       {/* Filtros */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide md:flex-wrap">
         {CATEGORIES.map((cat) => {
           const Icon = cat.icon;
           const isActive = activeCategory === cat.id;
@@ -68,7 +68,7 @@ export default function LimaMap() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'bg-brand text-white shadow-md'
                   : 'bg-background text-secondary hover:bg-gray-100 border border-gray-200'
@@ -83,7 +83,7 @@ export default function LimaMap() {
       </div>
 
       {/* Mapa */}
-      <div className="h-[600px] w-full overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+      <div className="h-[400px] md:h-[600px] w-full overflow-hidden rounded-xl border border-gray-200 shadow-lg">
         <MapContainer
           center={LIMA_CENTER}
           zoom={LIMA_ZOOM}
@@ -97,7 +97,7 @@ export default function LimaMap() {
           {filteredPlaces.map((place) => (
             <Marker key={place.id} position={place.position}>
               <Popup>
-                <div className="text-center min-w-[200px]">
+                <div className="text-center min-w-[200px] max-w-[250px]">
                   <strong className="block text-base font-bold text-text">{place.name}</strong>
                   <span className="mb-2 block text-xs font-semibold text-brand uppercase tracking-wider">
                     {CATEGORIES.find((c) => c.id === place.category)?.label || place.category}

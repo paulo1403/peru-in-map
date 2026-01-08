@@ -1,10 +1,10 @@
 import { IconMap2 } from '@tabler/icons-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguageStore } from '../stores/languageStore';
 import LanguageSelector from './LanguageSelector';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
-  const { t } = useLanguage();
+  const { t } = useLanguageStore();
 
   return (
     <header className="w-full border-b border-gray-200/50 bg-background/80 backdrop-blur-md py-4 sticky top-0 z-50">
