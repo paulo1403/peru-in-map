@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { HeroSection } from '../components/HeroSection';
+import InstallPrompt from '../components/InstallPrompt';
 import { api } from '../services/api';
 
 // Fetch featured places
@@ -15,6 +16,9 @@ const featuredPlaces = response.success && response.data ? response.data.items.s
 <Layout>
   <!-- Hero Section - Moderno y Limpio -->
   <HeroSection client:load />
+
+  <!-- Install Prompt PWA -->
+  <InstallPrompt client:load />
 
   <!-- Featured Places -->
   {featuredPlaces.length > 0 && (

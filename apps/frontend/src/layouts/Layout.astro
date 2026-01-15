@@ -1,22 +1,48 @@
 ---
 import '../styles/global.css';
 import { Header } from '../components/Header';
+import BottomNav from '../components/BottomNav';
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={Astro.props.description || 'QueHacer.pe | Descubre lugares increíbles en Perú'} />
+		
+		<!-- PWA -->
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#667eea" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="QueHacer.pe" />
+		<link rel="apple-touch-icon" href="/icon-192.png" />
+		
 		<title>{Astro.props.title || 'QueHacer.pe | Descubre el Perú'}</title>
 	</head>
 	<body class="min-h-screen text-text-primary">
 		<Header client:load />
-		<main class="flex-1">
+		<main class="flex-1 pb-16 md:pb-0">
 			<slot />
 		</main>
+		<BottomNav client:load />
+		
+		<!-- PWA Service Worker -->
+		<script is:inline>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/sw.js')
+						.then((registration) => {
+							console.log('✅ Service Worker registrado:', registration.scope);
+						})
+						.catch((error) => {
+							console.log('❌ Error al registrar Service Worker:', error);
+						});
+				});
+			}
+		</script>
 	</body>
 </html>

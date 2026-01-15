@@ -1,0 +1,50 @@
+{
+  "name": "QueHacer.pe - Descubre Perú",
+  "short_name": "QueHacer.pe",
+  "description": "Descubre lugares increíbles en Perú: cafés, restaurantes, parques y más",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["travel", "lifestyle", "navigation"],
+  "shortcuts": [
+    {
+      "name": "Explorar lugares",
+      "short_name": "Explorar",
+      "description": "Ver todos los lugares disponibles",
+      "url": "/lugares",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Cerca de mí",
+      "short_name": "Cerca",
+      "description": "Lugares cerca de tu ubicación",
+      "url": "/cerca",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
